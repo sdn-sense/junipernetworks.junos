@@ -36,7 +36,7 @@ from ansible.utils.display import Display
 
 display = Display()
 
-CLI_SUPPORTED_MODULES = ["junos_netconf", "junos_ping", "junos_command"]
+CLI_SUPPORTED_MODULES = ["junos_netconf", "junos_ping", "junos_command", "junos_config_command"]
 
 
 class ActionModule(ActionNetworkModule):
@@ -69,7 +69,7 @@ class ActionModule(ActionNetworkModule):
 
             if module_name == "junos_netconf" or (
                 provider["transport"] == "cli"
-                and module_name == "junos_command"
+                and module_name in ["junos_command", "junos_config_command"]
             ):
                 pc.connection = "ansible.netcommon.network_cli"
                 pc.port = int(
